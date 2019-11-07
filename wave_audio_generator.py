@@ -5,7 +5,7 @@ __SAMPLE_WIDTH_IN_BYTES = 2
 
 
 def __normalize_to_2byte(wave_data):
-    amplitude_multiplier = min(1, (2 ** (8 * __SAMPLE_WIDTH_IN_BYTES) - 1) / max(wave_data))
+    amplitude_multiplier = min(1, (2 ** (8 * __SAMPLE_WIDTH_IN_BYTES - 1) - 1) / max(wave_data))
     return [int(amplitude_multiplier * signal) for signal in wave_data]
 
 
