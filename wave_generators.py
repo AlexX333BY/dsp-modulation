@@ -16,7 +16,6 @@ def __generate_carrier_wave(amplitude, frequency, length, period_wave_generator,
     assert amplitude >= 0, "Amplitude should be non-negative"
     period_length = length // frequency
     period_wave = [amplitude * signal for signal in period_wave_generator(period_length)]
-    print(period_wave_generator(period_length))
     offseted_wave = period_wave[int(period_length * offset):] + period_wave[:int(period_length * offset)]
     return offseted_wave * frequency + offseted_wave[:(length % frequency)]
 
