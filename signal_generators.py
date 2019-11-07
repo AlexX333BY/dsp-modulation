@@ -43,3 +43,8 @@ def generate_noise(amplitude, length):
     assert length >= 0, "Length cannot be negative"
     assert amplitude >= 0, "Amplitude should be non-negative"
     return [2 * amplitude * random() - amplitude for _ in range(length)]
+
+
+def combine_to_poly_harmonic(signals):
+    length = min([len(signal) for signal in signals])
+    return [sum([signal[i] for signal in signals]) for i in range(length)]
