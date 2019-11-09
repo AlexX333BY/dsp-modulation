@@ -2,6 +2,7 @@ from wave_generators import *
 from wave_audio_generator import generate_mono_wave_audio
 from modulation import *
 import argparse
+from image_anti_aliasing import load_image, save_image, anti_aliase
 
 
 def generate_wave_task():
@@ -75,6 +76,18 @@ def frequency_modulation_task():
     data = wave_generators_callbacks[args.data](args.length)
     modulated = frequency_modulation(carrier, data, args.carrier_freq, args.carrier_deviation)
     generate_mono_wave_audio(modulated, args.file, args.repetition)
+
+def image_anti_aliasing_task():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--input-image-path', action='store', required=True, help='input image path',
+                        dest='in_path', type=str)
+    parser.add_argument('-o', '--output-image-path', action='store', required=True, help='output image path',
+                        dest='out_path', type=str)
+    parser.add_argument('-w', '--window-length', action='store', required=True, help='windows side length',
+                        dest='window_length', type=int)
+    args = parser.parse_known_args()[0]
+
+    save_image(anti_aliase(load_image(args.in_path), args.window_length), args.out_path)
 
 
 # wave generators
@@ -245,7 +258,8 @@ def main():
     tasks_callbacks = {'generate-wave': generate_wave_task,
                        'generate-polyharmonic-wave': generate_polyharmonic_wave_task,
                        'amplitude-modulation': amplitude_modulation_task,
-                       'frequency-modulation': frequency_modulation_task
+                       'frequency-modulation': frequency_modulation_task,
+                       'image-anti-aliasing': image_anti_aliasing_task
                        }
 
     parser = argparse.ArgumentParser()
