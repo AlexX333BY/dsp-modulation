@@ -198,7 +198,7 @@ def get_signal_with_frequencies_generators_callbacks():
             'square': get_square_signal_generator_with_frequency,
             'triangle': get_triangle_signal_generator_with_frequency,
             'sawtooth': get_sawtooth_signal_generator_with_frequency,
-            'noise': lambda length: get_noise_signal_generator_with_frequency
+            'noise': lambda length: get_noise_signal_generator_with_frequency()
             }
 
 
@@ -250,7 +250,7 @@ def get_signal_generators_callbacks():
             'square': get_square_signal_generator,
             'triangle': get_triangle_signal_generator,
             'sawtooth': get_sawtooth_signal_generator,
-            'noise': lambda length: get_noise_signal_generator
+            'noise': lambda length: get_noise_signal_generator()
             }
 
 
