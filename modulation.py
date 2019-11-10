@@ -1,10 +1,13 @@
+from math import fabs
+
+
 def __normalize_wave(wave, max_amplitude):
     amplitude_multiplier = max_amplitude / __get_wave_amplitude(wave)
     return [amplitude_multiplier * signal for signal in wave]
 
 
 def __get_wave_amplitude(wave):
-    return max(wave)
+    return max([fabs(signal) for signal in wave])
 
 
 def amplitude_modulation(carrier_signal_generator, data_wave, depth=1):
@@ -18,5 +21,5 @@ def frequency_modulation(carrier_signal_generator, data_wave, carrier_frequency,
     assert frequency_deviation < carrier_frequency, "Frequency deviation should be bigger than carrier frequency"
     normalized_data = __normalize_wave(data_wave, 1)
     amplitude_restorer = __get_wave_amplitude(data_wave)
-    return [amplitude_restorer * carrier_signal_generator(i, carrier_frequency + normalized_data[i] * frequency_deviation)
-            for i in range(len(normalized_data))]
+    return [carrier_signal_generator(i, carrier_frequency + normalized_data[i] * frequency_deviation)
+            * amplitude_restorer for i in range(len(normalized_data))]
