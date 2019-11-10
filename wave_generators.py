@@ -64,12 +64,14 @@ def generate_sine_signal(i, amplitude, frequency, length, initial_phase=0.0):
 
 def generate_square_signal(i, amplitude, frequency, duty_cycle, length):
     period_length = __get_period_length(length, frequency)
+    i = i % period_length
     last_up_pos = int(period_length * duty_cycle)
     return amplitude * (1 if i < last_up_pos else -1)
 
 
 def generate_triangle_signal(i, amplitude, frequency, length):
     period_length = __get_period_length(length, frequency)
+    i = i % period_length
     triangle_middle = period_length // 2
     if i < triangle_middle:
         return 2 * amplitude * i / triangle_middle - amplitude
@@ -80,7 +82,9 @@ def generate_triangle_signal(i, amplitude, frequency, length):
 
 
 def generate_sawtooth_signal(i, amplitude, frequency, length):
-    return 2 * amplitude * i / __get_period_length(length, frequency) - amplitude
+    period_length = __get_period_length(length, frequency)
+    i = i % period_length
+    return 2 * amplitude * i / period_length - amplitude
 
 
 def generate_noise_signal(amplitude):
